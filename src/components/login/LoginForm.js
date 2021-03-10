@@ -1,9 +1,11 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { AuthContext } from '../../context/AuthContext';
 import { BASE_URL } from '../../constants/api';
 import FormError from '../common/formError/FormError';
 
@@ -18,6 +20,8 @@ const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const [, setAuth] = useContext(AuthContext);
+
+  const history = useHistory();
 
   const { handleSubmit, register, errors } = useForm({
     resolver: yupResolver(schema),
@@ -34,6 +38,7 @@ const LoginForm = () => {
     try {
       const response = await axios.post(url, options);
       setAuth(response.data);
+      history.push('/dashboard');
     } catch (error) {
       setLoginError(error.toString());
     }
