@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 // import axios from 'axios';
+import { Link } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { BASE_URL } from '../../constants/api';
 
@@ -9,7 +10,6 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
   const http = useAxios();
 
-  
   useEffect(() => {
     async function getAllProducts() {
       try {
@@ -37,9 +37,11 @@ const ProductList = () => {
 
   return (
     <ul>
-      {products.map((product, index) => (
+      {products.map((product) => (
         <li key={product.id}>
           <h3>{product.title}</h3>
+          <p>{product.description}</p>
+          <Link to={`/dasboard/products/edit/${product.id}`}>EDIT PRODUCT</Link>
         </li>
       ))}
     </ul>

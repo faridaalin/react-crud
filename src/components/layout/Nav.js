@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 function Nav() {
   const [auth, setAuth] = useContext(AuthContext);
-  console.log('AMI logged in', auth);
+
   const history = useHistory();
   const logout = () => {
     setAuth(null);
@@ -15,7 +15,7 @@ function Nav() {
       <Link to='/'>Home</Link>
       {auth ? (
         <>
-          {' '}
+          <Link to='/dashboard'>Dashboard</Link>
           <button onClick={logout}>Logout</button>
         </>
       ) : (
